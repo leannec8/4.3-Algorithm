@@ -7,11 +7,13 @@ public class Algorithms {
     private static Scanner s;
     private static Scanner a;
     private static Scanner b;
+    private static Scanner l;
     public static void main(String[] args) throws FileNotFoundException {
         f = new File("words.txt");
         int two_letters = two_letters();
         int longest_word = longest_word();
         int palindrome = palindrome();
+        int greatest_length = greatest_length();
         System.out.println(two_letters);
         System.out.println(longest_word);
         System.out.println(palindrome);
@@ -22,9 +24,9 @@ public class Algorithms {
         s = new Scanner(f);
         int two_letters = 0;
         while (s.hasNext()) {
-            if (s.next().length() == 2)
+            String n = s.next();
+            if (n.length() == 2)
                 two_letters++;
-                s.next();
         }
         return two_letters;
     }
@@ -33,16 +35,18 @@ public class Algorithms {
         a = new Scanner(f);
         int greatest_length = 0;
         while (a.hasNext()) {
-            if (a.next().length() > greatest_length) greatest_length = a.next().length();
+            String n = a.next();
+            if (n.length() > greatest_length) greatest_length = n.length();
         }
         return greatest_length;
     }
 
     public static int longest_word() throws FileNotFoundException{
-        a = new Scanner(f);
+        l = new Scanner(f);
         int longest_word = 0;
-        while (a.hasNext()) {
-            if (a.next().length() == greatest_length()) longest_word++;
+        while (l.hasNext()) {
+            String n = l.next();
+            if (n.length() == greatest_length()) longest_word++;
         }
         return longest_word;
     }
@@ -52,7 +56,16 @@ public class Algorithms {
         int palindrome = 0;
         while (b.hasNext()) {
             String n = b.next();
-            if (n.substring(0,1).equals(n.substring(n.length()-1))) palindrome++;
+            int i = 0;
+            int letters = 0;
+            while (i <= n.length() / 2) {
+                if (n.substring(i,i+1).equals(n.substring(n.length()-(i+1),n.length()-(i))))
+                {
+                    letters++;
+                }
+                i++;
+            }
+            if (letters == (n.length() / 2) + 1) palindrome++;
         }
         return palindrome;
     }
